@@ -3,3 +3,4 @@ phpunit.xml.dist
 tests/
 var/
 vendor/
+!var/readme.md
