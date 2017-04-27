@@ -4,3 +4,4 @@ tests/
 var/
 vendor/
 !var/readme.md
+app/config/parameters.yml
