@@ -1,0 +1,7 @@
+login_page:
+    page_title: 'StoreCMS | Login to admin panel'
+    label: 'Sign in to start your session'
+    username: 'Username'
+    password: 'Password'
+    submit: 'Login'
+    forgot_password: 'I forgot my password'
