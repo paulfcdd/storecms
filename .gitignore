@@ -5,3 +5,4 @@ var/
 vendor/
 !var/readme.md
 app/config/parameters.yml
+web/node_modules

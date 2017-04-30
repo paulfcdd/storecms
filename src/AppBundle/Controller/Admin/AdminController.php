@@ -17,6 +17,7 @@ class AdminController extends Controller
      * @Route("admin", name="admin.index")
      */
     public function indexAction() {
+
         return new Response('admin');
     }
 }
