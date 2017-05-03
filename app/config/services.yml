@@ -4,6 +4,9 @@ parameters:
     #parameter_name: value
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.crudable:
+        class: AppBundle\Service\CrudableService
+        arguments: ['@doctrine.orm.entity_manager']
+    app.file_manager:
+        class: AppBundle\Service\FileManager
+        arguments: ['@doctrine.orm.entity_manager']

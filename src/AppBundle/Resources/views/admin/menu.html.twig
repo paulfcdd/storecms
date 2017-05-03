@@ -1,0 +1,46 @@
+{% trans_default_domain 'admin' %}
+
+{% for item in menu %}
+
+    {% set hidden = null %}
+
+    {% if is_granted(item.disabled) %}
+        {% set hidden = 'hidden' %}
+    {% endif %}
+
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {% set hidden = null %}
+    {% endif %}
+
+
+    <li class="treeview {{ hidden }}">
+
+        {% set url = null %}
+        {% if item.path is defined %}
+            {% set url = path(item.path) %}
+        {% endif %}
+
+        <a href="{{ url }}">
+            <i class="fa {{ item.icon }}"></i> <span>{{ item.title | trans }}</span>
+            {% if item.submenu is defined %}
+                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+            {% endif %}
+        </a>
+        <ul class="treeview-menu">
+
+            {% if item.submenu is defined %}
+
+                {% for submenu in item.submenu %}
+                    <li>
+                        <a href="{{ path(submenu.path, {
+                            'parameter': submenu.parameter
+                        }) }}">
+                            <i class="fa fa-circle-o"></i> {{ submenu.title | trans }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+        </ul>
+    </li>
+{% endfor %}

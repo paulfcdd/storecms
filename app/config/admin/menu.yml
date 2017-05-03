@@ -1,0 +1,52 @@
+dashboard:
+    title: 'admin.interface.dashboard.title'
+    icon: 'fa-dashboard'
+    disabled: null
+    path: 'admin.index'
+
+catalog:
+    title: 'admin.interface.catalog.title'
+    icon: 'fa-shopping-basket'
+    disabled: null
+    submenu:
+        categories:
+            path: 'admin.object.list'
+            parameter: 'category'
+            title: 'admin.interface.catalog.category.title'
+        products:
+            path: 'admin.object.list'
+            parameter: 'product'
+            title: 'admin.interface.catalog.product.title'
+        manufacturers:
+            path: 'admin.object.list'
+            parameter: 'manufacturer'
+            title: 'admin.interface.catalog.manufacturer.title'
+        attributes:
+            path: 'admin.object.list'
+            parameter: 'attribute'
+            title: 'admin.interface.catalog.attribute.title'
+        downloads:
+            path: 'admin.object.list'
+            parameter: 'download'
+            title: 'admin.interface.catalog.download.title'
+        reviews:
+            path: 'admin.object.list'
+            parameter: 'review'
+            title: 'admin.interface.catalog.review.title'
+        pages:
+            path: 'admin.object.list'
+            parameter: 'page'
+            title: 'admin.interface.catalog.page.title'
+settings:
+    title: 'admin.interface.settings.title'
+    icon: 'fa-cogs'
+    disabled: 'ROLE_ADMIN'
+    submenu:
+        general:
+            path: 'admin.settings.general'
+            parameter: null
+            title: 'admin.interface.settings.general.title'
+        localization:
+            path: 'admin.settings.localization'
+            parameter: null
+            title: 'admin.interface.settings.localization.title'

@@ -5,3 +5,30 @@ login_page:
     password: 'Password'
     submit: 'Login'
     forgot_password: 'I forgot my password'
+
+admin:
+    interface:
+        dashboard:
+            title: 'Dashboard'
+        catalog:
+            title: 'Catalog'
+            category:
+                title: 'Categories'
+            product:
+                title: 'Products'
+            manufacturer:
+                title: 'Manufacturers'
+            attribute:
+                title: 'Attributes'
+            download:
+                title: 'Downloads'
+            review:
+                title: 'Reviews'
+            page:
+                title: 'Pages'
+        settings:
+            title: 'Settings'
+            general:
+                title: 'General'
+            localization:
+                title: 'Localization'
