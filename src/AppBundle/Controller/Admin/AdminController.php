@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Form\CategoryType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,29 +32,64 @@ class AdminController extends Controller
      * @return Response
      */
     public function renderMenuAction() {
+
         $yml = new Parser();
-
-        $menu = $yml->parse(file_get_contents($this->getParameter('admin.menu')));
-
         return $this->render('@App/admin/menu.html.twig', [
-            'menu' => $menu,
+            'menu' => $yml->parse(file_get_contents($this->getParameter('admin.menu'))),
         ]);
     }
 
     /**
-     * @param mixed $parameter
+     * @param $parameter
+     * @return Response
      * @Route("/list/{parameter}", name="admin.object.list")
      */
     public function listObjectsAction($parameter) {
-        return new Response($parameter);
+
+        $doctrine = $this->getDoctrine();
+
+        $entity = 'AppBundle\\Entity\\'.ucfirst($parameter);
+
+        return $this->render('@App/admin/list_object.html.twig', [
+            'objects' => $doctrine->getRepository($entity)->findAll(),
+        ]);
     }
 
     /**
-     * @param null $parameter
      * @param Request $request
-     * @Route("/manage/{parameter}", name="admin.manage_object")
+     * @param $object
+     * @param null | $id
+     * @return Response
+     * @Route("/manage/{object}/{id}", name="admin.manage_object")
      */
-    public function manageObjectAction($parameter = null, Request $request) {
+    public function manageObjectAction(Request $request, $object, $id = null) {
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var string $entity */
+        $entity = 'AppBundle\\Entity\\'.ucfirst($object);
+
+        /** @var string $type */
+        $type = 'AppBundle\\Form\\'.ucfirst($object).'Type';
+
+        $data = $em->getRepository($entity)->findOneBy(['id' => $id]);
+
+        /** @var Form $form */
+        $form = $this
+            ->createForm($type, $data)
+            ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($form->getData());
+
+            $em->flush();
+        }
+
+        return $this->render('@App/admin/manage_object.html.twig', [
+            'form' => $form->createView(),
+        ]);
 
     }
 }

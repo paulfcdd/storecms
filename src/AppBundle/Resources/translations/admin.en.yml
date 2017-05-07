@@ -8,12 +8,30 @@ login_page:
 
 admin:
     interface:
+        save_button: 'Save'
+        return_button: 'Return'
+        edit_button: 'Edit'
+        delete_button: 'Delete'
+        no_parent: 'No parent'
         dashboard:
             title: 'Dashboard'
         catalog:
             title: 'Catalog'
+            list_page:
+                add_button: 'Add new'
+                block_title: 'Object list'
             category:
                 title: 'Categories'
+                table:
+                    id: 'ID'
+                    name: 'Category name'
+                    parent: 'Parent category'
+                    children: 'Number of children'
+                    sort: 'Sort order'
+                    actions: 'Actions'
+                manage:
+                    add: 'Add new category'
+                    edit: 'Edit category'
             product:
                 title: 'Products'
             manufacturer:

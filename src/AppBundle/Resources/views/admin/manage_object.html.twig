@@ -1,0 +1,31 @@
+{% extends '@App/admin/base.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% set id = app.request.attributes.get('_route_params')['id'] %}
+{% set object = app.request.attributes.get('_route_params')['object'] %}
+
+
+{% if id is null %}
+    {% set action = 'add' %}
+    {% else %}
+    {% set action = 'edit' %}
+{% endif %}
+
+{% set page_title = 'admin.interface.catalog.'~object~'.manage.'~action %}
+
+{% block content_title %}{{ page_title | trans }}{% endblock %}
+{% block content_subtitle %}{% endblock %}
+
+{% block content %}
+
+    <section class="content">
+        {% include '@App/admin/form/'~object~'.html.twig' %}
+    </section>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script>
+        $('.select2').select2({});
+    </script>
+{% endblock %}

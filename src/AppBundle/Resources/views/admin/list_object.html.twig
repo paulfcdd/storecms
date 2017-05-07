@@ -1,0 +1,37 @@
+{% extends '@App/admin/base.html.twig' %}
+{% trans_default_domain 'admin' %}
+
+{% set parameter = app.request.attributes.get('_route_params')['parameter'] %}
+
+{% set page_title = 'admin.interface.catalog.'~parameter~'.title' %}
+{% set load_table = '@App/admin/list_object_tables/'~parameter~'.html.twig' %}
+
+{% block content_title %}{{ page_title | trans }}{% endblock %}
+{% block content_subtitle %}{% endblock %}
+
+
+{% block content %}
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'admin.interface.catalog.list_page.block_title' | trans }}</h3>
+            </div>
+            <div class="box-body">
+                {% include load_table %}
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <a href="{{ path('admin.manage_object', {
+                    'object': parameter
+                }) }}" class="btn btn-primary btn-flat">
+                    <span class="fa fa-plus"></span>&nbsp;{{ 'admin.interface.catalog.list_page.add_button' | trans }}
+                </a>
+            </div>
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+
+    </section>
+{% endblock %}

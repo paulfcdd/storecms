@@ -1,0 +1,50 @@
+{% trans_default_domain 'admin' %}
+
+<!--
+         data-nonorderablecols parameter allows to you decide which columns should be non-orderable.
+         Set number of column/columns (counting starts from 0, where 0 means 1st column)
+         Can be empty
+
+-->
+<table class="table table-responsive table-bordered data-table" data-nonorderablecols="[5]">
+    <thead>
+    <tr>
+        <th>{{ 'admin.interface.catalog.category.table.id' | trans }}</th>
+        <th>{{ 'admin.interface.catalog.category.table.name' | trans }}</th>
+        <th>{{ 'admin.interface.catalog.category.table.parent' | trans }}</th>
+        <th>{{ 'admin.interface.catalog.category.table.children' | trans }}</th>
+        <th>{{ 'admin.interface.catalog.category.table.sort' | trans }}</th>
+        <th>{{ 'admin.interface.catalog.category.table.actions' | trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for object in objects %}
+        <tr>
+            <td>{{ object.id }}</td>
+            <td>{{ object.name }}</td>
+            <td>
+                {% if object.parent is null %}
+                    {{ 'admin.interface.no_parent' | trans }}
+                    {% else %}
+                    {{ object.parent.name }}
+                {% endif %}
+            </td>
+            <td>{{ object.children | length }}</td>
+            <td>{{ object.sortOrder }}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="{{ path('admin.manage_object', {
+                        'object': parameter,
+                        'id': object.id
+                    }) }}" class="btn btn-success btn-flat">
+                        <span class="fa fa-edit"></span>&nbsp;{{ 'admin.interface.edit_button' | trans }}
+                    </a>
+                    <a href="#" class="btn btn-danger btn-flat">
+                        <span class="fa fa-trash"></span>&nbsp;{{ 'admin.interface.delete_button' | trans }}
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

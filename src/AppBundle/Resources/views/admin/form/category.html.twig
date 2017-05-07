@@ -1,0 +1,48 @@
+{% trans_default_domain 'admin' %}
+
+{{ form_start(form) }}
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Title here</h3>
+    </div>
+    <div class="box-body">
+        <div class="form-group">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_label(form.parent) }}
+                    {{ form_widget(form.parent) }}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    {{ form_label(form.sortOrder) }}
+                    {{ form_widget(form.sortOrder) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+       <div class="btn-group">
+           <button type="submit" class="btn btn-success btn-flat">
+               <span class="fa fa-floppy-o"></span>&nbsp;{{ 'admin.interface.save_button' | trans }}
+           </button>
+           <a href="{{ path('admin.object.list', {
+               'parameter': object
+           }) }}" class="btn btn-warning btn-flat">
+               <span class="fa fa-chevron-left"></span>&nbsp;{{ 'admin.interface.return_button' | trans }}
+           </a>
+       </div>
+    </div>
+    <!-- /.box-footer-->
+</div>
+<!-- /.box -->
+{{ form_end(form) }}

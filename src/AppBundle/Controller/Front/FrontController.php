@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\Category;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -17,7 +18,12 @@ class FrontController extends Controller
      * @Route("", name="front.index")
      */
     public function indexAction() {
-        return $this->render('@App/front/index.html.twig');
+
+        $doctrine = $this->getDoctrine();
+
+        return $this->render('@App/front/index.html.twig', [
+            'categories' => $doctrine->getRepository(Category::class)->findByParent(null),
+        ]);
     }
 
 }

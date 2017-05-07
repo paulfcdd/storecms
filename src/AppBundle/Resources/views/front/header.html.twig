@@ -18,7 +18,7 @@
         <div class="container">
             <div class="logo-nav">
                 <div class="logo-nav-left">
-                    <h1><a href="index.html">New Shop <span>Shop anywhere</span></a></h1>
+                    <h1><a href="{{ path('front.index') }}">New Shop <span>Shop anywhere</span></a></h1>
                 </div>
                 <div class="logo-nav-left1">
                     <nav class="navbar navbar-default">
@@ -32,83 +32,54 @@
                             </button>
                         </div>
                         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="index.html" class="act">Home</a></li>
-                                <!-- Mega Menu -->
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women<b class="caret"></b></a>
-                                    <ul class="dropdown-menu multi-column columns-3">
-                                        <div class="row">
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Submenu1</h6>
-                                                    <li><a href="products.html">Clothing</a></li>
-                                                    <li><a href="products.html">Wallets</a></li>
-                                                    <li><a href="products.html">Shoes</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html"> Underwear </a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Submenu2</h6>
-                                                    <li><a href="products.html">Sunglasses</a></li>
-                                                    <li><a href="products.html">Wallets,Bags</a></li>
-                                                    <li><a href="products.html">Footwear</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                    <li><a href="products.html">Jewellery</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <a href="products.html"><img src="images/woo.jpg" alt=" "/></a>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <a href="products.html"><img src="images/woo1.jpg" alt=" "/></a>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>
-                                    <ul class="dropdown-menu multi-column columns-3">
-                                        <div class="row">
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Submenu1</h6>
-                                                    <li><a href="products.html">Clothing</a></li>
-                                                    <li><a href="products.html">Wallets</a></li>
-                                                    <li><a href="products.html">Shoes</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html"> Underwear </a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <h6>Submenu2</h6>
-                                                    <li><a href="products.html">Sunglasses</a></li>
-                                                    <li><a href="products.html">Wallets,Bags</a></li>
-                                                    <li><a href="products.html">Footwear</a></li>
-                                                    <li><a href="products.html">Watches</a></li>
-                                                    <li><a href="products.html">Accessories</a></li>
-                                                    <li><a href="products.html">Jewellery</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <a href="products1.html"><img src="images/woo3.jpg" alt=" "/></a>
-                                            </div>
-                                            <div class="col-sm-3  multi-gd-img">
-                                                <a href="products1.html"><img src="images/woo4.jpg" alt=" "/></a>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </ul>
-                                </li>
-                                <li><a href="codes.html">Short Codes</a></li>
-                                <li><a href="mail.html">Mail Us</a></li>
+                                {% for category in categories %}
+                                    {% if category.children | length > 0 %}
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ category.name }}<b class="caret"></b></a>
+                                            <ul class="dropdown-menu multi-column columns-3">
+                                                <div class="row">
+
+                                                    {% set max_cols = 4 %}
+                                                    {% set child_categories = category.children %}
+                                                    {% set more_categories = null %}
+
+                                                    {% if child_categories | length > max_cols %}
+                                                        {% set child_categories = child_categories|slice(0, max_cols) %}
+                                                        {% set more_categories = 'See all categories' %}
+                                                    {% endif %}
+
+                                                    {% set col_size = 12 / child_categories | length %}
+
+                                                    {% for child_category in child_categories %}
+                                                        <div class="col-sm-{{ col_size }}  multi-gd-img">
+                                                            <ul class="multi-column-dropdown">
+                                                                <h6>{{ child_category.name }}</h6>
+                                                                {% for sub_category in child_category.children %}
+                                                                    <li><a href="#">{{ sub_category.name }}</a></li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    {% endfor %}
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                {% if more_categories is not null %}
+                                                    <div class="row">
+                                                        <div class="col-sm-12 text-center">
+                                                            {{ more_categories }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </ul>
+                                        </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="#">{{ category.name }}</a>
+                                            </li>
+                                    {% endif %}
+                                {% endfor %}
+
                             </ul>
                         </div>
                     </nav>
